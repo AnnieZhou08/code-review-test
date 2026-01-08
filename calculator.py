@@ -9,7 +9,7 @@ class Calculator:
     def add(self, a, b):
         """Add two numbers."""
         return a + b
-
+    """Calculator class with basic arithmetic operations -- MODIFIED!."""
     def subtract(self, a, b):
         """Subtract b from a."""
         return a - b
