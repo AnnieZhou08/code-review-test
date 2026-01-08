@@ -4,7 +4,7 @@ A simple calculator module for basic arithmetic operations.
 
 
 class Calculator:
-    """Calculator class with basic arithmetic operations -- MODIFIED!."""
+
 
     def add(self, a, b):
         """Add two numbers."""
