@@ -61,6 +61,18 @@ class TestCalculator(unittest.TestCase):
             self.calc.modulo(5, 0)
         self.assertIn("Cannot perform modulo with zero", str(context.exception))
 
+    def test_square_root(self):
+        """Test square root operation."""
+        self.assertEqual(self.calc.square_root(4), 2)
+        self.assertEqual(self.calc.square_root(9), 3)
+        self.assertEqual(self.calc.square_root(0), 0)
+
+    def test_square_root_negative(self):
+        """Test square root of negative number raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.square_root(-4)
+        self.assertIn("Cannot calculate square root of negative number", str(context.exception))
+
 
 class TestCalculateFunction(unittest.TestCase):
     """Test cases for the calculate helper function."""
@@ -78,6 +90,34 @@ class TestCalculateFunction(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             calculate('unknown', 1, 2)
         self.assertIn("Unknown operation", str(context.exception))
+
+    def test_calculate_square_root(self):
+        """Test calculate function with square_root operation."""
+        self.assertEqual(calculate('square_root', 16), 4)
+
+    def test_calculate_absolute(self):
+        """Test calculate function with absolute operation."""
+        self.assertEqual(calculate('absolute', -5), 5)
+
+
+class TestAbsolute(unittest.TestCase):
+    """Test cases for the absolute method."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        self.calc = Calculator()
+
+    def test_absolute_negative(self):
+        """Test absolute value of negative number."""
+        self.assertEqual(self.calc.absolute(-5), 5)
+
+    def test_absolute_positive(self):
+        """Test absolute value of positive number."""
+        self.assertEqual(self.calc.absolute(5), 5)
+
+    def test_absolute_zero(self):
+        """Test absolute value of zero."""
+        self.assertEqual(self.calc.absolute(0), 0)
 
 
 if __name__ == '__main__':

@@ -4,12 +4,11 @@ A simple calculator module for basic arithmetic operations.
 
 
 class Calculator:
-
+    """Calculator class with basic arithmetic operations."""
 
     def add(self, a, b):
         """Add two numbers."""
         return a + b
-    """Calculator class with basic arithmetic operations -- MODIFIED!."""
     def subtract(self, a, b):
         """Subtract b from a."""
         return a - b
@@ -34,8 +33,18 @@ class Calculator:
             raise ValueError("Cannot perform modulo with zero")
         return a % b
 
+    def square_root(self, a):
+        """Return the square root of a."""
+        if a < 0:
+            raise ValueError("Cannot calculate square root of negative number")
+        return a ** 0.5
 
-def calculate(operation, a, b):
+    def absolute(self, a):
+        """Return the absolute value of a."""
+        return abs(a)
+
+
+def calculate(operation, a, b=None):
     """
     Perform a calculation based on the operation string.
 
@@ -51,7 +60,15 @@ def calculate(operation, a, b):
         ValueError: If operation is not recognized
     """
     calc = Calculator()
-    operations = {
+
+    # Single operand operations
+    single_ops = {
+        'square_root': calc.square_root,
+        'absolute': calc.absolute
+    }
+
+    # Two operand operations
+    binary_ops = {
         'add': calc.add,
         'subtract': calc.subtract,
         'multiply': calc.multiply,
@@ -60,7 +77,11 @@ def calculate(operation, a, b):
         'modulo': calc.modulo
     }
 
-    if operation not in operations:
+    if operation in single_ops:
+        return single_ops[operation](a)
+    elif operation in binary_ops:
+        if b is None:
+            raise ValueError(f"Operation '{operation}' requires two operands")
+        return binary_ops[operation](a, b)
+    else:
         raise ValueError(f"Unknown operation: {operation}")
-
-    return operations[operation](a, b)
