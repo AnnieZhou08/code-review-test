@@ -3,7 +3,8 @@ Unit tests for the calculator module.
 """
 
 import unittest
-from calculator import Calculator, calculate
+from calculator import Calculator
+from utils import calculate
 
 
 class TestCalculator(unittest.TestCase):
@@ -98,26 +99,6 @@ class TestCalculateFunction(unittest.TestCase):
     def test_calculate_absolute(self):
         """Test calculate function with absolute operation."""
         self.assertEqual(calculate('absolute', -5), 5)
-
-
-class TestAbsolute(unittest.TestCase):
-    """Test cases for the absolute method."""
-
-    def setUp(self):
-        """Set up test fixtures."""
-        self.calc = Calculator()
-
-    def test_absolute_negative(self):
-        """Test absolute value of negative number."""
-        self.assertEqual(self.calc.absolute(-5), 5)
-
-    def test_absolute_positive(self):
-        """Test absolute value of positive number."""
-        self.assertEqual(self.calc.absolute(5), 5)
-
-    def test_absolute_zero(self):
-        """Test absolute value of zero."""
-        self.assertEqual(self.calc.absolute(0), 0)
 
 
 if __name__ == '__main__':

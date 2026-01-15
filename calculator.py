@@ -43,45 +43,25 @@ class Calculator:
         """Return the absolute value of a."""
         return abs(a)
 
+    def factorial(self, n):
+        """Return the factorial of n."""
+        if n < 0:
+            raise ValueError("Cannot calculate factorial of negative number")
+        if not isinstance(n, int):
+            raise ValueError("Factorial requires an integer")
+        if n == 0 or n == 1:
+            return 1
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result
 
-def calculate(operation, a, b=None):
-    """
-    Perform a calculation based on the operation string.
+    def percentage(self, value, percent):
+        """Calculate percent of value."""
+        return (value * percent) / 100
 
-    Args:
-        operation: String representing the operation (add, subtract, multiply, divide, power, modulo)
-        a: First operand
-        b: Second operand
-
-    Returns:
-        Result of the calculation
-
-    Raises:
-        ValueError: If operation is not recognized
-    """
-    calc = Calculator()
-
-    # Single operand operations
-    single_ops = {
-        'square_root': calc.square_root,
-        'absolute': calc.absolute
-    }
-
-    # Two operand operations
-    binary_ops = {
-        'add': calc.add,
-        'subtract': calc.subtract,
-        'multiply': calc.multiply,
-        'divide': calc.divide,
-        'power': calc.power,
-        'modulo': calc.modulo
-    }
-
-    if operation in single_ops:
-        return single_ops[operation](a)
-    elif operation in binary_ops:
-        if b is None:
-            raise ValueError(f"Operation '{operation}' requires two operands")
-        return binary_ops[operation](a, b)
-    else:
-        raise ValueError(f"Unknown operation: {operation}")
+    def floor_divide(self, a, b):
+        """Return the floor division of a by b."""
+        if b == 0:
+            raise ValueError("Cannot divide by zero")
+        return a // b
