@@ -1,5 +1,7 @@
 """
 A simple calculator module for basic arithmetic operations.
+
+Provides common mathematical operations with proper error handling for edge cases.
 """
 
 
@@ -9,9 +11,6 @@ class Calculator:
     def add(self, a, b):
         """Add two numbers."""
         return a + b
-    def subtract(self, a, b):
-        """Subtract b from a."""
-        return a - b
 
     def multiply(self, a, b):
         """Multiply two numbers."""
@@ -32,6 +31,10 @@ class Calculator:
         if b == 0:
             raise ValueError("Cannot perform modulo with zero")
         return a % b
+
+    def subtract(self, a, b):
+        """Subtract b from a."""
+        return a - b
 
     def square_root(self, a):
         """Return the square root of a."""

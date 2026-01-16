@@ -74,6 +74,52 @@ class TestCalculator(unittest.TestCase):
             self.calc.square_root(-4)
         self.assertIn("Cannot calculate square root of negative number", str(context.exception))
 
+    def test_absolute(self):
+        """Test absolute value operation."""
+        self.assertEqual(self.calc.absolute(-5), 5)
+        self.assertEqual(self.calc.absolute(5), 5)
+        self.assertEqual(self.calc.absolute(0), 0)
+        self.assertEqual(self.calc.absolute(-3.5), 3.5)
+
+    def test_factorial(self):
+        """Test factorial operation."""
+        self.assertEqual(self.calc.factorial(0), 1)
+        self.assertEqual(self.calc.factorial(1), 1)
+        self.assertEqual(self.calc.factorial(5), 120)
+        self.assertEqual(self.calc.factorial(10), 3628800)
+
+    def test_factorial_negative(self):
+        """Test factorial of negative number raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.factorial(-1)
+        self.assertIn("Cannot calculate factorial of negative number", str(context.exception))
+
+    def test_factorial_non_integer(self):
+        """Test factorial of non-integer raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.factorial(3.5)
+        self.assertIn("Factorial requires an integer", str(context.exception))
+
+    def test_percentage(self):
+        """Test percentage calculation."""
+        self.assertEqual(self.calc.percentage(100, 50), 50)
+        self.assertEqual(self.calc.percentage(200, 25), 50)
+        self.assertEqual(self.calc.percentage(50, 10), 5)
+        self.assertEqual(self.calc.percentage(0, 50), 0)
+
+    def test_floor_divide(self):
+        """Test floor division operation."""
+        self.assertEqual(self.calc.floor_divide(10, 3), 3)
+        self.assertEqual(self.calc.floor_divide(20, 4), 5)
+        self.assertEqual(self.calc.floor_divide(7, 2), 3)
+        self.assertEqual(self.calc.floor_divide(-7, 2), -4)
+
+    def test_floor_divide_by_zero(self):
+        """Test floor division by zero raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.floor_divide(5, 0)
+        self.assertIn("Cannot divide by zero", str(context.exception))
+
 
 class TestCalculateFunction(unittest.TestCase):
     """Test cases for the calculate helper function."""
