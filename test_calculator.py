@@ -3,7 +3,8 @@ Unit tests for the calculator module.
 """
 
 import unittest
-from calculator import Calculator, calculate
+from calculator import Calculator
+from utils import calculate
 
 
 class TestCalculator(unittest.TestCase):
@@ -61,6 +62,64 @@ class TestCalculator(unittest.TestCase):
             self.calc.modulo(5, 0)
         self.assertIn("Cannot perform modulo with zero", str(context.exception))
 
+    def test_square_root(self):
+        """Test square root operation."""
+        self.assertEqual(self.calc.square_root(4), 2)
+        self.assertEqual(self.calc.square_root(9), 3)
+        self.assertEqual(self.calc.square_root(0), 0)
+
+    def test_square_root_negative(self):
+        """Test square root of negative number raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.square_root(-4)
+        self.assertIn("Cannot calculate square root of negative number", str(context.exception))
+
+    def test_absolute(self):
+        """Test absolute value operation."""
+        self.assertEqual(self.calc.absolute(-5), 5)
+        self.assertEqual(self.calc.absolute(5), 5)
+        self.assertEqual(self.calc.absolute(0), 0)
+        self.assertEqual(self.calc.absolute(-3.5), 3.5)
+
+    def test_factorial(self):
+        """Test factorial operation."""
+        self.assertEqual(self.calc.factorial(0), 1)
+        self.assertEqual(self.calc.factorial(1), 1)
+        self.assertEqual(self.calc.factorial(5), 120)
+        self.assertEqual(self.calc.factorial(10), 3628800)
+
+    def test_factorial_negative(self):
+        """Test factorial of negative number raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.factorial(-1)
+        self.assertIn("Cannot calculate factorial of negative number", str(context.exception))
+
+    def test_factorial_non_integer(self):
+        """Test factorial of non-integer raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.factorial(3.5)
+        self.assertIn("Factorial requires an integer", str(context.exception))
+
+    def test_percentage(self):
+        """Test percentage calculation."""
+        self.assertEqual(self.calc.percentage(100, 50), 50)
+        self.assertEqual(self.calc.percentage(200, 25), 50)
+        self.assertEqual(self.calc.percentage(50, 10), 5)
+        self.assertEqual(self.calc.percentage(0, 50), 0)
+
+    def test_floor_divide(self):
+        """Test floor division operation."""
+        self.assertEqual(self.calc.floor_divide(10, 3), 3)
+        self.assertEqual(self.calc.floor_divide(20, 4), 5)
+        self.assertEqual(self.calc.floor_divide(7, 2), 3)
+        self.assertEqual(self.calc.floor_divide(-7, 2), -4)
+
+    def test_floor_divide_by_zero(self):
+        """Test floor division by zero raises ValueError."""
+        with self.assertRaises(ValueError) as context:
+            self.calc.floor_divide(5, 0)
+        self.assertIn("Cannot divide by zero", str(context.exception))
+
 
 class TestCalculateFunction(unittest.TestCase):
     """Test cases for the calculate helper function."""
@@ -78,6 +137,14 @@ class TestCalculateFunction(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             calculate('unknown', 1, 2)
         self.assertIn("Unknown operation", str(context.exception))
+
+    def test_calculate_square_root(self):
+        """Test calculate function with square_root operation."""
+        self.assertEqual(calculate('square_root', 16), 4)
+
+    def test_calculate_absolute(self):
+        """Test calculate function with absolute operation."""
+        self.assertEqual(calculate('absolute', -5), 5)
 
 
 if __name__ == '__main__':

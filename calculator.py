@@ -1,18 +1,16 @@
 """
 A simple calculator module for basic arithmetic operations.
+
+Provides common mathematical operations with proper error handling for edge cases.
 """
 
 
 class Calculator:
-
+    """Calculator class with basic arithmetic operations."""
 
     def add(self, a, b):
         """Add two numbers."""
         return a + b
-    """Calculator class with basic arithmetic operations -- MODIFIED!."""
-    def subtract(self, a, b):
-        """Subtract b from a."""
-        return a - b
 
     def multiply(self, a, b):
         """Multiply two numbers."""
@@ -34,33 +32,53 @@ class Calculator:
             raise ValueError("Cannot perform modulo with zero")
         return a % b
 
+    def subtract(self, a, b):
+        """Subtract b from a."""
+        return a - b
 
-def calculate(operation, a, b):
-    """
-    Perform a calculation based on the operation string.
+    def square_root(self, a):
+        """Return the square root of a."""
+        if a < 0:
+            raise ValueError("Cannot calculate square root of negative number")
+        return a ** 0.5
 
-    Args:
-        operation: String representing the operation (add, subtract, multiply, divide, power, modulo)
-        a: First operand
-        b: Second operand
+    def absolute(self, a):
+        """Return the absolute value of a."""
+        return abs(a)
 
-    Returns:
-        Result of the calculation
+    def factorial(self, n):
+        """Return the factorial of n."""
+        if n < 0:
+            raise ValueError("Cannot calculate factorial of negative number")
+        if not isinstance(n, int):
+            raise ValueError("Factorial requires an integer")
+        if n == 0 or n == 1:
+            return 1
+        result = 1
+        for i in range(2, n + 1):
+            result *= i
+        return result
 
-    Raises:
-        ValueError: If operation is not recognized
-    """
-    calc = Calculator()
-    operations = {
-        'add': calc.add,
-        'subtract': calc.subtract,
-        'multiply': calc.multiply,
-        'divide': calc.divide,
-        'power': calc.power,
-        'modulo': calc.modulo
-    }
+    def percentage(self, value, percent):
+        """Calculate percent of value."""
+        return (value * percent) / 100
 
-    if operation not in operations:
-        raise ValueError(f"Unknown operation: {operation}")
+    def floor_divide(self, a, b):
+        """Return the floor division of a by b."""
+        if b == 0:
+            raise ValueError("Cannot divide by zero")
+        return a // b
 
-    return operations[operation](a, b)
+    def is_close(self, a, b, tolerance=1e-9):
+        """
+        Check if two numbers are approximately equal within a tolerance.
+
+        Args:
+            a: First number
+            b: Second number
+            tolerance: Maximum allowed difference (default: 1e-9)
+
+        Returns:
+            True if numbers are within tolerance, False otherwise
+        """
+        return abs(a - b) <= tolerance
